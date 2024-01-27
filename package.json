@@ -1,0 +1,31 @@
+{
+  "name": "trial-storybook-addon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "preinstall": "npx only-allow npm",
+    "storybook": "storybook dev -p 7005",
+    "storybook:build": "storybook build"
+  },
+  "devDependencies": {
+    "@storybook/react": "^7.6.10",
+    "@storybook/react-vite": "^7.6.10",
+    "@tsconfig/vite-react": "^3.0.0",
+    "@types/react": "^18.2.48",
+    "@vitejs/plugin-react": "^4.2.1",
+    "prettier": "^3.2.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.6.10",
+    "vite": "^4.5.2"
+  },
+  "engines": {
+    "node": "18.19.0"
+  },
+  "volta": {
+    "node": "18.19.0"
+  }
+}

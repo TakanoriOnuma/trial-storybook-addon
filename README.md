@@ -1,0 +1,1 @@
+# storybook addonの検証
