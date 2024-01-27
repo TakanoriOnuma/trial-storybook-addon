@@ -2,17 +2,17 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import { TestMessage } from "./TestMessage";
 import { PARAM_KEY } from "../src/constants";
-import { useMyAddonParams } from "../src";
+import { useMyAddonState } from "../src";
 
 type Story = StoryObj<typeof TestMessage>;
 
 const Template: Story["render"] = (args) => {
-  const addonParams = useMyAddonParams();
+  const myAddonState = useMyAddonState();
 
   return (
     <div>
       <TestMessage {...args} />
-      <div>addonParams: {JSON.stringify(addonParams)}</div>
+      <div>myAddonState: {JSON.stringify(myAddonState)}</div>
     </div>
   );
 };

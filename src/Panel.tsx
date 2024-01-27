@@ -1,40 +1,42 @@
 import { Addon_BaseType } from "@storybook/types";
 import { AddonPanel } from "@storybook/components";
-import { useParameter, useGlobals } from "@storybook/manager-api";
+import { useParameter } from "@storybook/manager-api";
 import { PARAM_KEY } from "./constants";
 
 import { useEffect } from "react";
-import { INITIAL_ADDON_PARAMS, MyAddonParams } from "./constants";
+import { useMyAddonStateFromManager } from "./myAddonState/useMyAddonStateFromManager";
+import { INITIAL_MY_ADDON_STATE } from "./myAddonState/MyAddonState";
 
 export const Panel: Addon_BaseType["render"] = ({ active }) => {
-  const [globals, updateGlobals] = useGlobals();
-  const addonParams: MyAddonParams = globals[PARAM_KEY] ?? INITIAL_ADDON_PARAMS;
+  const [myAddonState, setMyAddonState] = useMyAddonStateFromManager();
 
-  const params = useParameter(PARAM_KEY, INITIAL_ADDON_PARAMS);
+  const params = useParameter(PARAM_KEY, INITIAL_MY_ADDON_STATE);
 
   useEffect(() => {
-    console.log("effect", params);
-    updateGlobals({
-      [PARAM_KEY]: params,
-    });
+    setMyAddonState(params);
   }, [params]);
 
   return (
     <AddonPanel active={active ?? false}>
       <div>パラメータ設定</div>
       <input
-        value={addonParams.num ?? ""}
+        value={myAddonState.num ?? ""}
         type="number"
         onChange={(event) => {
+          if (event.target.value === "") {
+            setMyAddonState({
+              ...myAddonState,
+              num: undefined,
+            });
+            return;
+          }
           const num = event.target.valueAsNumber;
           if (Number.isNaN(num)) {
             return;
           }
-          updateGlobals({
-            [PARAM_KEY]: {
-              ...addonParams,
-              num,
-            },
+          setMyAddonState({
+            ...myAddonState,
+            num,
           });
         }}
       />
