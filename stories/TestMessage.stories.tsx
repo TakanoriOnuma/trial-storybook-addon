@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import { TestMessage } from "./TestMessage";
 import { PARAM_KEY } from "../src/constants";
-import { useMyAddonState } from "../src";
+import { useMyAddonState, MyAddonState } from "../src";
 
 type Story = StoryObj<typeof TestMessage>;
 
@@ -40,7 +40,7 @@ export const DefaultWithParams: Story = {
   parameters: {
     [PARAM_KEY]: {
       num: 10,
-    },
+    } satisfies MyAddonState,
   },
 };
 
@@ -50,7 +50,8 @@ export const TextWithParams: Story = {
   },
   parameters: {
     [PARAM_KEY]: {
+      flag: true,
       num: 10,
-    },
+    } satisfies MyAddonState,
   },
 };

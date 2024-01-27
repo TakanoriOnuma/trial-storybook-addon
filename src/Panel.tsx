@@ -1,5 +1,6 @@
 import { Addon_BaseType } from "@storybook/types";
 import { AddonPanel } from "@storybook/components";
+import { PureArgsTable } from "@storybook/blocks";
 import { useParameter } from "@storybook/manager-api";
 import { PARAM_KEY } from "./constants";
 
@@ -18,26 +19,30 @@ export const Panel: Addon_BaseType["render"] = ({ active }) => {
 
   return (
     <AddonPanel active={active ?? false}>
-      <div>パラメータ設定</div>
-      <input
-        value={myAddonState.num ?? ""}
-        type="number"
-        onChange={(event) => {
-          if (event.target.value === "") {
-            setMyAddonState({
-              ...myAddonState,
-              num: undefined,
-            });
-            return;
-          }
-          const num = event.target.valueAsNumber;
-          if (Number.isNaN(num)) {
-            return;
-          }
-          setMyAddonState({
-            ...myAddonState,
-            num,
-          });
+      <h2>パラメータ設定</h2>
+      <PureArgsTable
+        args={myAddonState}
+        rows={{
+          flag: {
+            name: "flag",
+            control: {
+              type: "boolean",
+            },
+          },
+          num: {
+            name: "num",
+            control: {
+              type: "number",
+            },
+          },
+        }}
+        compact
+        inAddonPanel
+        updateArgs={(newArgs) => {
+          setMyAddonState(newArgs);
+        }}
+        resetArgs={() => {
+          setMyAddonState(params);
         }}
       />
     </AddonPanel>

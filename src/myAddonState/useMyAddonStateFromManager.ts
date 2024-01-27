@@ -8,15 +8,14 @@ import { INITIAL_MY_ADDON_STATE, MyAddonState } from "./MyAddonState";
  */
 export const useMyAddonStateFromManager = () => {
   const [globals, updateGlobals] = useGlobals();
-  const globalParams: MyAddonState | null =
-    Object.keys(globals[PARAM_KEY] ?? {}).length > 0
-      ? globals[PARAM_KEY]
-      : null;
 
   const params = useParameter(PARAM_KEY, INITIAL_MY_ADDON_STATE);
   const fallbackState: MyAddonState = params ?? INITIAL_MY_ADDON_STATE;
 
-  const myAddonState: MyAddonState = globalParams ?? fallbackState;
+  const myAddonState: MyAddonState = {
+    ...fallbackState,
+    ...globals[PARAM_KEY],
+  };
 
   const setMyAddonState = (newState: MyAddonState) => {
     const droppedAddonState: MyAddonState = { ...newState };
