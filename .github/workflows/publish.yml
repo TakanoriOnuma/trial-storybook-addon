@@ -38,6 +38,8 @@ jobs:
           mkdir publish
           cp -r dist publish
           cp -r src publish
+          cp manager.js publish
+          cp preview.js publish
           cp package.json publish
           cp README.md publish
 
