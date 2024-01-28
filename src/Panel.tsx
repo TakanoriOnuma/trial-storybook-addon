@@ -39,7 +39,10 @@ export const Panel: Addon_BaseType["render"] = ({ active }) => {
         compact
         inAddonPanel
         updateArgs={(newArgs) => {
-          setMyAddonState(newArgs);
+          setMyAddonState({
+            ...myAddonState,
+            ...newArgs,
+          });
         }}
         resetArgs={() => {
           setMyAddonState(params);
