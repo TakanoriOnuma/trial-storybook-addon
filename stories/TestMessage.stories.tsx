@@ -1,8 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 
 import { TestMessage } from "./TestMessage";
-import { PARAM_KEY } from "../src/constants";
-import { useMyAddonState, MyAddonState } from "../src";
+import { useMyAddonState, createAssignableParametersForMyAddon } from "../src";
 
 type Story = StoryObj<typeof TestMessage>;
 
@@ -38,9 +37,9 @@ export const Text: Story = {
 
 export const DefaultWithParams: Story = {
   parameters: {
-    [PARAM_KEY]: {
+    ...createAssignableParametersForMyAddon({
       num: 10,
-    } satisfies MyAddonState,
+    }),
   },
 };
 
@@ -49,9 +48,9 @@ export const TextWithParams: Story = {
     message: "こんにちは！",
   },
   parameters: {
-    [PARAM_KEY]: {
+    ...createAssignableParametersForMyAddon({
       flag: true,
       num: 10,
-    } satisfies MyAddonState,
+    }),
   },
 };
